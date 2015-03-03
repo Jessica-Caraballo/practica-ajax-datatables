@@ -1,0 +1,12 @@
+td .btn-primary {
+	margin-right: 3px;
+}
+body {
+	margin-top:40px; 
+	background-color: #ECE0F8; 
+	color: #4B088A;
+}
+#formulario{
+	display:none; 
+	background-color: #E3CEF6;
+}
