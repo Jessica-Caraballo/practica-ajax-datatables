@@ -1,12 +1,11 @@
-td .btn-primary {
-	margin-right: 3px;
-}
 body {
 	margin-top:40px; 
 	background-color: #ECE0F8; 
 	color: #4B088A;
 }
-#formulario{
-	display:none; 
-	background-color: #E3CEF6;
-}
+td .btn-primary {margin-right: 3px;}
+#editar_doctor_formulario{display: none;}
+/*#edicionok{display: none}
+#edicionerr{display: none}*/
+#bienDental{height: 40px;width: 35px;}
+#formularioCrear{display: none}

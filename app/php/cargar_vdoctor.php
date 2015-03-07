@@ -19,7 +19,7 @@
  */
  
 // DB table to use
-$table = 'vdoctores';
+$table = 'vdoctor';
  
 // Table's primary key
 $primaryKey = 'id_doctor';
@@ -32,7 +32,7 @@ $columns = array(
     array( 'db' => 'id_doctor',   'dt' => 'id_doctor' ),
     array( 'db' => 'nombre_doctor', 'dt' => 'nombre_doctor' ),
     array( 'db' => 'numcolegiado',  'dt' => 'numcolegiado' ),
-    array( 'db' => 'id_clinica',   'dt' => 'id_clinica' ),
+    /*array( 'db' => 'id_clinica',   'dt' => 'id_clinica' ),*/
     array( 'db' => 'nombre_clinica', 'dt' => 'nombre_clinica' )
 );
  

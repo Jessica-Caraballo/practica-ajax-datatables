@@ -1,0 +1,5 @@
+CREATE VIEW vdoctor AS
+SELECT clinica_doctor.id_doctor as 'id_doctor', doctores.nombre as 'nombre_doctor', doctores.numcolegiado as 'numcolegiado', group_concat(clinicas.nombre SEPARATOR '</li><li>') as 'nombre_clinica'
+FROM doctores, clinicas, clinica_doctor
+WHERE clinica_doctor.id_clinica=clinicas.id_clinica and clinica_doctor.id_doctor=doctores.id_doctor
+GROUP BY doctores.nombre
