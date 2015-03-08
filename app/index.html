@@ -8,15 +8,16 @@
     <meta name="viewport" content="width=device-width">
     <link rel="shortcut icon" href="/favicon.ico">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <!-- build:css(.) styles/vendor.css -->
-    <!-- bower:css -->
-    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css" />
-    <!-- endbower -->
-    <!-- endbuild -->
-    <!-- build:css(.tmp) styles/main.css -->
-    <link rel="stylesheet" href="styles/dataTables.bootstrap.css">
-    <link rel="stylesheet" href="styles/main.css">
-    <!-- endbuild -->
+  <!-- build:css(.) styles/vendor.css -->
+  <!-- bower:css -->
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+  <link rel="stylesheet" href="bower_components/jquery-growl/stylesheets/jquery.growl.css" />
+  <!-- endbower -->
+  <!-- endbuild -->
+  <!-- build:css(.tmp) styles/main.css -->
+  <link rel="stylesheet" href="styles/dataTables.bootstrap.css">
+  <link rel="stylesheet" href="styles/main.css">
+  <!-- endbuild -->
 </head>
 
 <body>
@@ -69,47 +70,6 @@
             </div>
         </div>
 
-        <!--<div id="formulario" class="row">
-            <div class="col-md-4 col-md-offset-3">
-            <form class="form-horizontal">
-                <div class="modal-header">
-                    <button id="close" class='close' type="submit" aria-hidden="true"><span aria-hidden="true">&times;</span></button>
-                    <h3>Datos del Doctor</h3>
-                </div>
-                    <div id='cuerpo'>
-                        <div class="form-group">
-                            <label for="nombre" class="col-sm-2 control-label">Nombre: </label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="nombre" placeholder="Nombre del doctor">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="numColegiado" class="col-sm-2 control-label">Nº de colegiado: </label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="numColegiado" placeholder="Número de colegiado">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="cargar_clinicas" class="col-sm-2 control-label">Clinicas: </label>
-                            <div class="col-sm-10">
-                                <select name="selectClinicas[]" id="cargar_clinicas" multiple class="form-control cargar_clinicas">
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-10 col-sm-offset-2">
-                                <button id="enviar" type="submit" class="btn btn-success">Actualizar</button>
-                            </div>
-                        </div>
-
-                    </div>
-                </form>
-
-            </div>
-        </div>-->
-
     <!-- Editar doctor -->
     <div id="editar_doctor" class="row">
       <div class="col-md-4 col-md-offset-3">
@@ -149,20 +109,45 @@
           </div>
         </div>
 
+    <!-- Modal Borrar Doctor-->
+    <div class="modal fade" id="vmodal_borrar" name="vmodal_borrar" tabindex="-1" role="dialog" aria-labelledby="vmodal_borrar" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Borrar Doctor</h4>
+          </div>
+
+          <div class="modal-body">
+            <h3>¿Desea borrar el doctor?</h3>
+          </div> 
+                   
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            <button type="button" type="submit" id="siBorrar" name="siBorrar" data-dismiss="modal" class="btn btn-primary siBorrar">Si, borrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
 
 
     </div>
     
     <!-- build:js(.) scripts/vendor.js -->
-    <!-- bower:js -->
-    <script src="../bower_components/jquery/dist/jquery.js"></script>
-    <!-- endbower -->
-    <!-- endbuild -->
-
-    <!-- build:js({app,.tmp}) scripts/main.js -->
-    <script src="../bower_components/datatables/media/js/jquery.dataTables.js"></script>
-    <script src="../bower_components/datatables/media/js/dataTables.bootstrap.js"></script>
-    <script src="scripts/main.js"></script>
-    <!-- endbuild -->
+      <!-- bower:js -->
+      <script src="bower_components/jquery/dist/jquery.js"></script>
+      <script src="bower_components/jquery-validate/dist/jquery.validate.js"></script>
+      <script src="bower_components/remarkable-bootstrap-notify/bootstrap-notify.js"></script>
+      <script src="bower_components/jgrowl/jquery.jgrowl.js"></script>
+      <script src="bower_components/jquery-growl/javascripts/jquery.growl.js"></script>
+      <!-- endbower -->
+      <!-- endbuild -->
+      <!-- build:js({app,.tmp}) scripts/main.js -->
+      <script src="scripts/jquery.dataTables.js"></script>
+      <script src="scripts/dataTables.bootstrap.js"></script>
+      <script src="scripts/modal.js"></script>
+      <script src="scripts/messages_es.js"></script>
+      <script src="scripts/main.js"></script>
+      <!-- endbuild -->
 
 </html>

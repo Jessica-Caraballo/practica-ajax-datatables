@@ -9,3 +9,6 @@ td .btn-primary {margin-right: 3px;}
 #edicionerr{display: none}*/
 #bienDental{height: 40px;width: 35px;}
 #formularioCrear{display: none}
+select{
+	width: 250px;
+}

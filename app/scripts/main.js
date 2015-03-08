@@ -9,7 +9,7 @@
                     "searchable":  false
                 },
                 {
-                    "targets": [ 4, 5 ],
+                    "targets": [ 4 , 5 ],
                     "orderable": false
                 }
             ],
@@ -47,19 +47,20 @@
            }, {
                'data': 'numcolegiado'
            }, {
-               'data': 'nombre_clinica',
+               'data': 'clinicas',
                   'render': function(data) {
                     return '<li>' + data + '</li> <br/>';
                   }
            }, {
                'data': 'id_doctor',
                'render': function(data) {
-                  return '<a class="btn btn-info editarbtn" href=http://localhost/practica-ajax-datatables/app/editar_doctor.php?id_doctor=' + data + '>Editar</a>';
+                  return '<a class="btn btn-info editarboton" href=http://localhost/practica-ajax-datatables/app/editar_doctor.php?id_doctor=' + data + '>Editar</a>';
                }
            }, {
                'data': 'id_doctor',   
                  'render': function(data) {
-                     return '<a class="btn btn-danger borrarbtn" href=http://localhost/php/borrar.php?id_doctor=' + data + '>Borrar</a>';
+                     /*return '<a class="btn btn-danger borrarboton" data-toggle="modal" data-target="#vmodal_borrar" href=http://localhost/php/borrar_doctor.php?id_doctor=' + data + '>Borrar</a>';*/
+                    return '<a class="btn btn-danger borrarboton" data-toggle="modal" data-target="#vmodal_borrar" href=http://localhost/practica-ajax-datatables/app/php/borrar_doctor.php?id_doctor=' + data + '>Borrar</a>';
                   }
            }]
        });
@@ -67,9 +68,9 @@
    /*
     * Accion Editar
     */
-   /*Creamos la función que muestre el formulario cuando hagamos click*/
+   /*Función que muestre el formulario cuando hagamos click*/
          /*ojo, es necesario hacerlo con el método ON. Tanto por rendimiento como porque puede haber elementos (botones) que todavía no existan en el document.ready*/
-  $('#miTabla').on('click', '.editarbtn', function(e) {
+  $('#miTabla').on('click', '.editarboton', function(e) {
       e.preventDefault();
       $('#tabla').fadeOut(100);
       $('#editar_doctor_formulario').fadeIn(100);
@@ -107,95 +108,62 @@
     /*
     * Accion Borrar
     */
-   $('#miTabla').on('click', '.borrarbtn', function(e) {
-       e.preventDefault();
-       var nRow = $(this).parents('tr')[0];
-       var aData = miTabla.row(nRow).data();
-       var idClinica = aData.idClinica;
-
-
-       $.ajax({
-           /*en principio el type para api restful sería delete pero no lo recogeríamos en $_REQUEST, así que queda como POST*/
-           type: 'POST',
-           dataType: 'json',
-           url: 'php/borrar_clinica.php',
-           //estos son los datos que queremos actualizar, en json:
-           data: {
-               id_clinica: idClinica
-           },
-           error: function(xhr, status, error) {
-               //mostraríamos alguna ventana de alerta con el error
-               alert("Ha entrado en error");
-           },
-           success: function(data) {
-               //obtenemos el mensaje del servidor, es un array!!!
-               //var mensaje = (data["mensaje"]) //o data[0], en función del tipo de array!!
-               //actualizamos datatables:
-               /*para volver a pedir vía ajax los datos de la tabla*/
-               miTabla.fnDraw();
-           },
-           complete: {
-               //si queremos hacer algo al terminar la petición ajax
-           }
-       });
-   });
-
-  $('#close').click(function(e) {
-    $('#miTabla').fadeIn(100);
-     $('#formulario').fadeOut(100);
-
+/*Saca ventana Modal para confirmar*/
+  $('#miTabla').on('click', '.borrarboton', function(e) {
+   e.preventDefault();
+   var nRow = $(this).parents('tr')[0];
+   var aData = miTabla.row(nRow).data();
+   var id_doctor = aData.id_doctor;
+   var nombre_doctor = aData.nombre_doctor;
+   $('#nombre').val(nombre_doctor);
+   alert(id_doctor); 
+   
   });
-        
- $('#enviar').click(function(e) {
-     /*e.preventDefault();
-     idClinica = $('#idClinica').val();
-     nombre = $('#nombre').val();
-     localidad = $('#localidad').val();
-     provincia = $('#provincia').val();
-     direccion = $('#direccion').val();
-     cif = $('#cif').val();
-     cp = $('#cp').val();
-     id_tarifa = $('#id_tarifa').val();
 
-     $.ajax({
-         type: 'POST',
-         dataType: 'json',
-         url: 'php/modificar_clinica.php',
-         //lo más cómodo sería mandar los datos mediante 
-         //var data = $( "form" ).serialize();
-         //pero como el php tiene otros nombres de variables, lo dejo así
-         //estos son los datos que queremos actualizar, en json:
-         data: {
-             id_clinica: idClinica,
-             nombre: nombre,
-             localidad: localidad,
-             provincia: provincia,
-             direccion: direccion,
-             cp: cp,
-             id_tarifa: id_tarifa,
-             cif: cif
-         },
+  /*Ventana Modal Borrar*/
+  $('#vmodal_borrar').on('click','#siBorrar',function(e){  
+      $.ajax({
+        type: 'POST',
+        dataType: 'json',
+        url: '../php/borrar_doctor.php',   
+        /*Aqui da el fallo - Not defined*/ 
+        data: id_doctor,
          error: function(xhr, status, error) {
-             //mostraríamos alguna ventana de alerta con el error
-         },
-         success: function(data) {
-            var $mitabla =  $("#miTabla").dataTable( { bRetrieve : true } );
-            $mitabla.fnDraw();
-         },
-         complete: {
-             //si queremos hacer algo al terminar la petición ajax
+          $.growl.error({ title: "ERROR", message: "No se ha podido borrar" });
+        },
+        success: function(data) {
+              var $mitabla =  $("#miTabla").dataTable( { bRetrieve : true } );
+              $mitabla.fnDraw();
+              $.growl.notice({ title: "OK", message: "Borrado corecto" });
+            }
+      });
+  $('#tabla').fadeIn(100);
+  });
+
+  /*Cargo clinicas*/
+  function cargarClinicas() {
+     $.ajax({
+       type: 'POST',
+       dataType: 'json',
+       url: 'php/listar_clinicas.php',
+       async: false,
+          error: function(xhr, status, error) {
+          //Alerta con error
+          },
+          success: function(data) {
+           $('#clinicas_n,#clinicas_e').empty();
+             $.each(data, function() {
+               $('#clinicas_n,#clinicas_e').append(
+                 $('<option ></option>').val(this.idClinica).html(this.nombre)
+                 );
+             });
          }
-     });*/
+    });
+  }
 
-     $('#miTabla').fadeIn(100);
-     $('#formulario').fadeOut(100);
+  
+        
+ 
 
- });
-
-  $('#cargar_clinicas').on('shown.bs.modal', function() {
-    $('#cargar_clinicas').load("php/cargar_clinicas.php");
-    $('#nombre').val('');
-    $('#nColegiado').val('');
-    $('#selectClinicas').val('');
-});
+  
 });
