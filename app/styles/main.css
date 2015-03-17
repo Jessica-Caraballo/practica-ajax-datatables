@@ -3,12 +3,10 @@ body {
 	background-color: #ECE0F8; 
 	color: #4B088A;
 }
-td .btn-primary {margin-right: 3px;}
-#editar_doctor_formulario{display: none;}
-/*#edicionok{display: none}
-#edicionerr{display: none}*/
+
+#formularioCrearDoctor{display:none;}
+#formularioEditarDoctor{display: none;}
+.github{margin: 1% 0 0 0;}
 #bienDental{height: 40px;width: 35px;}
-#formularioCrear{display: none}
-select{
-	width: 250px;
-}
+.navbar{background-color: #AC58FA; }
+p>strong{color:white;}

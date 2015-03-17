@@ -1,60 +1,59 @@
 <?php
-/* Database connection information */
+
+/* Informacion de la base de datos */
 include("mysql.php" );
 
-/*
- * Local functions
- */
+
+/* Funcion para recoger errores */
 function fatal_error($sErrorMessage = '') {
     header($_SERVER['SERVER_PROTOCOL'] . ' 500 Internal Server Error');
     die($sErrorMessage);
 }
 
-/*
- * MySQL connection
- */
+/* Conexion MYSQL */
 if (!$gaSql['link'] = mysql_pconnect($gaSql['server'], $gaSql['user'], $gaSql['password'])) {
     fatal_error('Could not open connection to server');
 }
-
+/* Comprueba si se conecto a la base de datos */
 if (!mysql_select_db($gaSql['db'], $gaSql['link'])) {
     fatal_error('Could not select database ');
 }
-
+/* Cambia el modo a UTF-8 */
 mysql_query('SET names utf8');
-//$_REQUEST['id_doctor'] = 1;
+
+/* Si recibio la id_doctor */
 if (isset($_REQUEST['id_doctor'])) {
-    // param was set in the query string
+    /* Si la recibio vacia devuelve esta vacia*/
     if (empty($_REQUEST['id_doctor'])) {
-        return "id_doctor se encuentra vacio";
+        return "El parámetro id_doctor viene vacio!";
     }
+    /* Si no esta vacia la inicializa */
     $id_doctor = $_REQUEST['id_doctor'];
 }
 
-/*
- * SQL queries
- * Get data to display
- */
-$query = "DELETE FROM doctores WHERE id_doctor=" . $id_doctor;
+/* Prepara la sentencia para borrar el doctor y la lanza */
+$query = "delete from doctores where id_doctor=" . $id_doctor;
 $query_res = mysql_query($query);
 
-// Comprobar el resultado
+/* Si la consulta dio error devolvemos un mensaje con el error y el numero del estado */
 if (!$query_res) {
     if (mysql_errno() == 1451) {
-        $mensaje = "No se puede borrar el doctor";
+        $mensaje = " Error, no se pudo borrar la clinica, tiene doctores asignados";
         $estado = mysql_errno();
     } else {
-        $mensaje = 'Error al borrar doctor, Consulta: ' . mysql_error() . "\n";
+        $mensaje = ' Error numero: ' . mysql_error() . "\n";
         $estado = mysql_errno();
     }
 } else {
-    $mensaje = "El doctor se ha borrado ";
+    $mensaje = " Exito, borrado correcto";
     $estado = 0;
 }
+/* Declaramos y guardamos en un array el mensaje y estado de la consulta */
 $resultado = array();
 $resultado[] = array(
     'mensaje' => $mensaje,
     'estado' => $estado
 );
+/* Devolvemos la representacion como cadena en json del array */
 echo json_encode($resultado);
 ?>

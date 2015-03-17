@@ -8,25 +8,31 @@
     <meta name="viewport" content="width=device-width">
     <link rel="shortcut icon" href="/favicon.ico">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-  <!-- build:css(.) styles/vendor.css -->
-  <!-- bower:css -->
-  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
-  <link rel="stylesheet" href="bower_components/jquery-growl/stylesheets/jquery.growl.css" />
-  <!-- endbower -->
-  <!-- endbuild -->
-  <!-- build:css(.tmp) styles/main.css -->
-  <link rel="stylesheet" href="styles/dataTables.bootstrap.css">
-  <link rel="stylesheet" href="styles/main.css">
-  <!-- endbuild -->
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/dataTables.bootstrap.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
 </head>
 
 <body>
+    <!-- Seccion para el boton de añadir y la tabla de datatables -->
     <div class="container-fluid">
-        <div id="tabla" class="row">
+        <div id="tabla" class="row">            
+            <div class="col-md-6">
+                <button id="añadirDoctor" type="button" class="btn btn-success navbar-btn">Añadir doctor</button>
+            </div>
+            <div class="col-md-6">
+                <a class="btn btn-danger github" role="button" href="https://github.com/Jessica-Caraballo/practica-ajax-datatables" target="_blank">Mi GitHub</a><br/>
+            </div>
             <div class="col-md-12">
-                <table id="miTabla" class="table">
+                <table id="miTabla" class="table stripe">
                 <!--Cabecera-->
-                  <nav class="navbar navbar-default">
+                <nav class="navbar navbar-default">
                     <div class="container-fluid">
                       <div class="navbar-header">
                         <a class="navbar-brand" href="#">
@@ -36,118 +42,154 @@
                         <p class="navbar-text"><strong>¡Bien <br/>Dental!</strong></p>
                       </div>
                     </div>
-                  </nav>
-
-                <!--Nuevo doctor - Boton-->
-                <div>                
-                    <button id="nuevo_doctor" type="button" class="btn btn-warning navbar-btn">Nuevo Doctor</button>
-                </div>
-
+                </nav>
 
                 <!--Columnas-->
                     <thead>
-                        <th>Id_Doctor</th>
-                        <th>Doctor</th>
-                        <th>Nº Colegiado</th>
-                        <th>Clinica</th>
+                        <th>Nombre doctor</th>
+                        <th>Numero de colegiado</th>
+                        <th>Nombre Clinica</th>
+                        <th>Id clinica</th>
                         <th>Editar</th>
                         <th>Borrar</th>
                     </thead>
-
                     <tbody>
                     </tbody>
-
                     <tfoot>
-                        <th>Id_Doctor</th>
-                        <th>Doctor</th>
-                        <th>Nº Colegiado</th>
-                        <th>Clinica</th>
+                        <th>Nombre doctor</th>
+                        <th>Numero de colegiado</th>
+                        <th>Nombre Clinica</th>
+                        <th>Id clinica</th>
                         <th>Editar</th>
                         <th>Borrar</th>
                     </tfoot>
                 </table>
+            </div>
+        </div>
+
+
+
+        <!-- Formulario para editar el doctor seleccionado -->
+        <div id="formularioEditarDoctor" class="row">
+            <div class="col-md-4 col-md-offset-3">
+                <!-- Subformulario para controlar la validacion -->
+                <form class="form-horizontal" id="editarDoctor" action="" method="post" >
+                    <div>
+                    <a id="close" class="close" href="index.html" aria-hidden="true" role="button">&times;</a>
+                    <h2>Editar doctor</h2>
+                        <div class="form-group">
+                            <label for="idDoctor" class="col-sm-2 control-label">Identificador Doctor:</label>
+                            <div class="col-sm-10">
+                                <input disabled="true" type="text" class="form-control" id="idDoctor">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="nombre" class="col-sm-2 control-label">Nombre:*</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="nombre"  name="nombre" placeholder="Nombre del doctor">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="numcolegiado" class="col-sm-2 control-label">Nº Colegiado:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="numcolegiado" name="numcolegiado" placeholder="Número de colegiado">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="clinicasEditar" class="col-sm-2 control-label">Nombre clinicas*:</label>
+                            <div class="col-sm-10">
+                                <select  multiple id="clinicasEditar" name="clinicasEditar"  size="7">
+                                  
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-10 col-sm-offset-2">
+                                <button id="enviar" type="submit" class="btn btn-primary">Enviar</button>
+                                <a class="btn btn-danger" href="index.html" role="button">Cancelar</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
 
             </div>
         </div>
 
-    <!-- Editar doctor -->
-    <div id="editar_doctor" class="row">
-      <div class="col-md-4 col-md-offset-3">
-        <form id="editar_doctor_formulario" class="form-horizontal" action="" method="post">
-          <div>
-            <h2>Datos del Doctor</h2>
-            <div class="form-group">
-              <label class="col-sm-2 control-label" for="editar_nombre_doctor">Nombre<span class="required">&nbsp;*</span>:</label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control" id="editar_nombre_doctor">
-              </div>
+        <!-- Formulario para añadir un nuevo doctor -->
+        <div id="formularioCrearDoctor" class="row">
+            <div class="col-md-4 col-md-offset-3">
+                <!-- Subformulario para controlar la validacion -->
+                <form class="form-horizontal" id="crearDoctor" name="crearDoctor" method="post" action="#"  >
+                    <div>
+                    <a id="close" class="close" href="index.html" aria-hidden="true" role="button">&times;</a>
+                    <h2>Añadir nuevo doctor</h2>                        
+                        <div class="form-group">
+                            <label for="nombreNuevo" class="col-sm-2 control-label">Nombre:*</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="nombreNuevo" name="nombreNuevo"  placeholder="Nombre del doctor">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="numcolegiadoNuevo" class="col-sm-2 control-label">Nº Colegiado</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="numcolegiadoNuevo" name="numcolegiadoNuevo" placeholder="Número de colegiado">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="clinicasCrear" class="col-sm-2 control-label">Nombre clinicas*:</label>
+                            <div class="col-sm-10">
+                                <select  multiple id="clinicasCrear" name="clinicasCrear" size="7"></select>
+                            </div>
+                        </div>                     
+                        <div class="form-group">
+                            <div class="col-sm-10 col-sm-offset-2">
+                                <button id="enviarDoc" type="submit" class="btn btn-primary">Enviar</button>
+                                <a class="btn btn-danger" href="index.html" role="button">Cancelar</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
-
-            <div class="form-group">
-              <label class="col-sm-2 control-label" for="numcolegiado">Nº Colegiado:</label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control" id="editar_numcolegiado" name="editar_numcolegiado" >
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="editar_nombre_clinica" class="col-sm-2 control-label">Nombre clinicas<span class="required">&nbsp;*</span>:</label>
-              <div class="col-sm-10">
-                <select multiple id="editar_nombre_clinica" name="editar_nombre_clinica" >
-                </select>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <div class="col-sm-10 col-sm-offset-2">
-                <button type="submit" class="btn btn-primary">Enviar</button>
-                <a class="btn btn-danger" href="index.html" role="button">Cancelar</a>
-              </div>
-            </div>
-            <div>
-            </form>
-          </div>
         </div>
 
-    <!-- Modal Borrar Doctor-->
-    <div class="modal fade" id="vmodal_borrar" name="vmodal_borrar" tabindex="-1" role="dialog" aria-labelledby="vmodal_borrar" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title">Borrar Doctor</h4>
-          </div>
-
-          <div class="modal-body">
-            <h3>¿Desea borrar el doctor?</h3>
-          </div> 
-                   
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-            <button type="button" type="submit" id="siBorrar" name="siBorrar" data-dismiss="modal" class="btn btn-primary siBorrar">Si, borrar</button>
-          </div>
+        <!-- Ventana modal para borrar el doctor seleccionado -->
+        <div class="modal fade" id="modalBorrarDoctor" name="modalBorrarDoctor" tabindex="-1" role="dialog" aria-labelledby="modalBorrarDoctor" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">                 
+                        <h4 class="modal-title" id="myModalLabel">Borrar doctor</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h3>¿Desea borrar el doctor?</h3>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                        <button type="button" type="submit" id="borrarDoctor" name="borrarDoctor" data-dismiss="modal" class="btn btn-primary aceptarBorrado">Si</button>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-
-
-
     </div>
     
     <!-- build:js(.) scripts/vendor.js -->
-      <!-- bower:js -->
-      <script src="bower_components/jquery/dist/jquery.js"></script>
-      <script src="bower_components/jquery-validate/dist/jquery.validate.js"></script>
-      <script src="bower_components/remarkable-bootstrap-notify/bootstrap-notify.js"></script>
-      <script src="bower_components/jgrowl/jquery.jgrowl.js"></script>
-      <script src="bower_components/jquery-growl/javascripts/jquery.growl.js"></script>
-      <!-- endbower -->
-      <!-- endbuild -->
-      <!-- build:js({app,.tmp}) scripts/main.js -->
-      <script src="scripts/jquery.dataTables.js"></script>
-      <script src="scripts/dataTables.bootstrap.js"></script>
-      <script src="scripts/modal.js"></script>
-      <script src="scripts/messages_es.js"></script>
-      <script src="scripts/main.js"></script>
-      <!-- endbuild -->
+    <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/bootstrap.growl/bootstrap-growl.js"></script>
+    <script src="bower_components/jquery-validate/dist/jquery.validate.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- build:js({app,.tmp}) scripts/main.js -->
+    <script src="scripts/jquery.dataTables.js"></script>
+    <script src="scripts/dataTables.bootstrap.js"></script>
+    <script src="scripts/modal.js"></script>
+    <script src="scripts/messages_es.js"></script>
+    
+
+    <script src="scripts/main.js"></script>
+    <!-- endbuild -->
+
+</body>
 
 </html>
