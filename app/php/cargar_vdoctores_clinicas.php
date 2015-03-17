@@ -11,13 +11,17 @@ $primaryKey = 'id_doctor';
  
 /* Array con los datos */
 $columns = array(
+	/*Id del doctor*/
     array( 'db' => 'id_doctor', 'dt' => 'idDoctor' ),
+    /*Nombre del doctor*/
     array( 'db' => 'nombre',  'dt' => 'nombre' ),
+    /*Numero de colegiado del doctor*/
     array( 'db' => 'numcolegiado',   'dt' => 'numcolegiado' ),
+    /*Nombre de la clinica*/
     array( 'db' => 'clinicas',     'dt' => 'nombreClinica' ),
+    /*Id de la clinica*/
     array( 'db' => 'id_clinica',     'dt' => 'idClinica' )
 );
- 
  
 /* Incluimos la clase ssp.class.php */ 
 require( 'ssp.class.php' );

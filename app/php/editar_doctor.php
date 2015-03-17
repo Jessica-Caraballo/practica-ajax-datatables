@@ -22,7 +22,6 @@ if (!mysql_select_db($gaSql['db'], $gaSql['link'])) {
 /* Cambia el modo a UTF-8 */
 mysql_query('SET names utf8');
 
-
 /* Recojo las variables que recibo por post en otras variables para su posterior uso */
 $id = $_POST["idDoctor"];
 $nombre = $_POST["nombre"];
@@ -63,7 +62,8 @@ if (!$query_res) {
     $mensaje  = 'Error en la consulta: ' . mysql_error() ;
     $estado = mysql_errno();
 }else{
-    $mensaje = "Actualización correcta";
+   /*Si no hay error*/
+    $mensaje = "Doctor editado correctamente";
     $estado = 0;
 }
 /* Declaramos y guardamos en un array el mensaje y estado de la consulta */

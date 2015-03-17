@@ -3,7 +3,6 @@
 /* Informacion de la base de datos */
 include("mysql.php" );
 
-
 /* Funcion para recoger errores */
 function fatal_error($sErrorMessage = '') {
     header($_SERVER['SERVER_PROTOCOL'] . ' 500 Internal Server Error');
@@ -38,20 +37,23 @@ $query_res = mysql_query($query);
 /* Si la consulta dio error devolvemos un mensaje con el error y el numero del estado */
 if (!$query_res) {
     if (mysql_errno() == 1451) {
-        $mensaje = " Error, no se pudo borrar la clinica, tiene doctores asignados";
+        $mensaje = " Error, no se pudo borrar el doctors";
         $estado = mysql_errno();
     } else {
         $mensaje = ' Error numero: ' . mysql_error() . "\n";
         $estado = mysql_errno();
     }
 } else {
-    $mensaje = " Exito, borrado correcto";
+    /*Si la consulta no da error, confirmamos se ha borrado el doctor*/
+    $mensaje = "Doctor borrado correctamente";
     $estado = 0;
 }
 /* Declaramos y guardamos en un array el mensaje y estado de la consulta */
 $resultado = array();
 $resultado[] = array(
+    /*Pasamos el mensaje*/
     'mensaje' => $mensaje,
+    /*Pasamos el estado*/
     'estado' => $estado
 );
 /* Devolvemos la representacion como cadena en json del array */

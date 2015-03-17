@@ -27,7 +27,7 @@
                 <button id="añadirDoctor" type="button" class="btn btn-success navbar-btn">Añadir doctor</button>
             </div>
             <div class="col-md-6">
-                <a class="btn btn-danger github" role="button" href="https://github.com/Jessica-Caraballo/practica-ajax-datatables" target="_blank">Mi GitHub</a><br/>
+                <a class="btn btn-primary github" role="button" href="https://github.com/Jessica-Caraballo/practica-ajax-datatables" target="_blank">Mi GitHub</a><br/>
             </div>
             <div class="col-md-12">
                 <table id="miTabla" class="table stripe">
@@ -78,13 +78,13 @@
                     <a id="close" class="close" href="index.html" aria-hidden="true" role="button">&times;</a>
                     <h2>Editar doctor</h2>
                         <div class="form-group">
-                            <label for="idDoctor" class="col-sm-2 control-label">Identificador Doctor:</label>
+                            <label for="idDoctor" class="col-sm-2 control-label">ID Doctor:</label>
                             <div class="col-sm-10">
                                 <input disabled="true" type="text" class="form-control" id="idDoctor">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="nombre" class="col-sm-2 control-label">Nombre:*</label>
+                            <label for="nombre" class="col-sm-2 control-label">Nombre Doctor:*</label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" id="nombre"  name="nombre" placeholder="Nombre del doctor">
                             </div>
@@ -96,7 +96,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="clinicasEditar" class="col-sm-2 control-label">Nombre clinicas*:</label>
+                            <label for="clinicasEditar" class="col-sm-2 control-label">Clinicas*:</label>
                             <div class="col-sm-10">
                                 <select  multiple id="clinicasEditar" name="clinicasEditar"  size="7">
                                   
@@ -105,8 +105,8 @@
                         </div>
                         <div class="form-group">
                             <div class="col-sm-10 col-sm-offset-2">
-                                <button id="enviar" type="submit" class="btn btn-primary">Enviar</button>
-                                <a class="btn btn-danger" href="index.html" role="button">Cancelar</a>
+                                <button id="enviar" type="submit" class="btn btn-success">Enviar</button>
+                                <a class="btn btn-warning" href="index.html" role="button">Cancelar</a>
                             </div>
                         </div>
 
@@ -125,7 +125,7 @@
                     <a id="close" class="close" href="index.html" aria-hidden="true" role="button">&times;</a>
                     <h2>Añadir nuevo doctor</h2>                        
                         <div class="form-group">
-                            <label for="nombreNuevo" class="col-sm-2 control-label">Nombre:*</label>
+                            <label for="nombreNuevo" class="col-sm-2 control-label">Nombre Doctor:*</label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" id="nombreNuevo" name="nombreNuevo"  placeholder="Nombre del doctor">
                             </div>
@@ -137,15 +137,15 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="clinicasCrear" class="col-sm-2 control-label">Nombre clinicas*:</label>
+                            <label for="clinicasCrear" class="col-sm-2 control-label">Clinicas*:</label>
                             <div class="col-sm-10">
                                 <select  multiple id="clinicasCrear" name="clinicasCrear" size="7"></select>
                             </div>
                         </div>                     
                         <div class="form-group">
                             <div class="col-sm-10 col-sm-offset-2">
-                                <button id="enviarDoc" type="submit" class="btn btn-primary">Enviar</button>
-                                <a class="btn btn-danger" href="index.html" role="button">Cancelar</a>
+                                <button id="enviarDoc" type="submit" class="btn btn-success">Enviar</button>
+                                <a class="btn btn-warning" href="index.html" role="button">Cancelar</a>
                             </div>
                         </div>
                     </div>
@@ -164,8 +164,9 @@
                         <h3>¿Desea borrar el doctor?</h3>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                        <button type="button" type="submit" id="borrarDoctor" name="borrarDoctor" data-dismiss="modal" class="btn btn-primary aceptarBorrado">Si</button>
+                        <button type="button" type="submit" id="borrarDoctor" name="borrarDoctor" data-dismiss="modal" class="btn btn-success aceptarBorrado">Borrar</button>
+                        <button type="button" class="btn btn-warning" data-dismiss="modal">Cancelar</button>
+                        
                     </div>
                 </div>
             </div>

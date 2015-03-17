@@ -2,7 +2,7 @@
 
 // Metodo especial de validacion para España, con acentos y ñ
 $.validator.addMethod("lettersonly", function(value, element) {
-    return this.optional(element) || /^[áéíóúÁÉÍÓÚA-Za-zñÑ ]+$/i.test(value);
+    return this.optional(element) || /^[áéíóúÁÉÍÓÚA-Za-zñÑçÇ ]+$/i.test(value);
 }, "Por favor, introduzca solo letras");
 
 // Declaracion inicial de variables para posterior utilizacion
@@ -15,14 +15,14 @@ $(document).ready(function() {
 var miTabla = $('#miTabla').DataTable({
   // Modificamos las propiedades de las columnas especiales
   "columnDefs": [
-      {
+      {     
           "targets": [ 3 ],
-          "visible": false,
+          "visible": false,/*No es visible*/
           "searchable":  false
       },
       {
           "targets": [ 4 , 5 ],
-          "orderable": false
+          "orderable": false/*No permite ordenar*/
       }
   ],
   'processing': true,
@@ -33,19 +33,19 @@ var miTabla = $('#miTabla').DataTable({
     'sLengthMenu': 'Mostrar _MENU_ registros',
     'sZeroRecords': 'No se encontraron resultados',
     'sEmptyTable': 'Ningún dato disponible en esta tabla',
-    'sInfo': 'Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros',
-    'sInfoEmpty': 'Mostrando registros del 0 al 0 de un total de 0 registros',
+    'sInfo': 'Registros del _START_ al _END_ <br/>(total de _TOTAL_ registros)',
+    'sInfoEmpty': 'Sin registros',
     'sInfoFiltered': '(filtrado de un total de _MAX_ registros)',
     'sInfoPostFix': '',
-    'sSearch': 'Buscar:',
+    'sSearch': 'Filtrar / Buscar:',
     'sUrl': '',
     'sInfoThousands': ',',
-    'sLoadingRecords': 'Cargando...',
+    'sLoadingRecords': 'Cargando datos...',
     'oPaginate': {
        'sFirst': 'Primero',
        'sLast': 'Último',
-       'sNext': 'Siguiente',
-       'sPrevious': 'Anterior'
+       'sNext': 'Pag. Siguiente >>',
+       'sPrevious': '<< Pag. Anterior '
     },
     'oAria': {
        'sSortAscending': ': Activar para ordenar la columna de manera ascendente',
@@ -59,6 +59,7 @@ var miTabla = $('#miTabla').DataTable({
     }, { 
       'data': 'nombreClinica',
         'render': function(data) {
+          /*Lista las clinicas del doctor*/
         return '<li>' + data + '</li><br>';
     }
     }, {
@@ -67,13 +68,13 @@ var miTabla = $('#miTabla').DataTable({
       'data': 'idDoctor',
       'render': function(data) {
       /*Boton para editar el doctor*/
-      return '<a class="btn btn-primary editarbtn" >Editar</a>';   
+      return '<a class="btn btn-warning editarbtn" >Editar</a>';   
     }
   },{
       'data': 'idDoctor',
       'render': function(data) {
       /*Boton para borrar el doctor que carga una ventana modal*/
-      return '<a class="btn btn-warning borrarbtn" data-toggle="modal" data-target="#modalBorrarDoctor" >Borrar</a>';   
+      return '<a class="btn btn-danger borrarbtn" data-toggle="modal" data-target="#modalBorrarDoctor" >Borrar</a>';   
     }
   }]
 });
@@ -138,12 +139,13 @@ var miTabla = $('#miTabla').DataTable({
         $mitabla.fnDraw();
         $.growl({
           icon: "glyphicon glyphicon-remove",
-          message: " Exito, doctor borrado"
+          message: " Doctor borrado correctamente"
         },{
           type: "success"
         });
       },
       complete: {
+          //Si funciona o no, programariamos que hace
       }
     });
     // Volvemos a mostrar datatables
@@ -187,6 +189,7 @@ var miTabla = $('#miTabla').DataTable({
            id_clinica:id_clinica
         },
         error: function(xhr, status, error) {
+          /*Error de growl*/
           $.growl({         
             icon: "glyphicon glyphicon-remove",
             message: " Error, no se puede editar el doctor"
@@ -201,9 +204,10 @@ var miTabla = $('#miTabla').DataTable({
           $mitabla.fnDraw();
           // Si todo fue bien (no dio un error mysql_errno)
           if(data[0].estado==0){
+            /*Ok de growl*/
             $.growl({
               icon: "glyphicon glyphicon-ok",
-              message: " Exito, doctor editado"
+              message: "Doctor editado correctamente"
             },{
               type: "success"
             });
@@ -279,7 +283,7 @@ var miTabla = $('#miTabla').DataTable({
       if(data[0].estado==0){
         $.growl({
           icon: "glyphicon glyphicon-ok",
-          message: " Exito, doctor añadido"
+          message: "Doctor añadido correctamente"
         },{
           type: "success"
         });

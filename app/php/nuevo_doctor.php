@@ -3,7 +3,6 @@
 /* Informacion de la base de datos */
 include("mysql.php" );
 
-
 /* Funcion para recoger errores */
 function fatal_error($sErrorMessage = '') {
     header($_SERVER['SERVER_PROTOCOL'] . ' 500 Internal Server Error');
@@ -68,7 +67,7 @@ if (!$query_res||!$res||$query_res_insert){
         $estado = mysql_errno();
     }
 }else{
-    $mensaje = " Exito, doctor añadido correctamente";
+    $mensaje = " El doctor se ha añadido correctamente";
     $estado = 0;
 }
 /* Declaramos y guardamos en un array el mensaje y estado de la consulta */

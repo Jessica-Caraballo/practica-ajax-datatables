@@ -2,6 +2,7 @@
  * Translated default messages for the jQuery validation plugin.
  * Locale: ES (Spanish; Español)
  */
+ /*Mensajes de validacion en español*/
 $.extend($.validator.messages, {
 	required: "Este campo es obligatorio.",
 	remote: "Por favor, este dato ya existe en la BD.",
